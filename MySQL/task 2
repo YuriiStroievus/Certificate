@@ -1,0 +1,32 @@
+-- Сформувати запит на основі даних з таблиці нижче  для перевірки: 
+-- Чи здійснював юзер з id - sdlasbd97asd98as78d платний  чойс в другому розділі книги book123
+-- Групувати результат за назвою книги.
+-- Результат запиту повинен містити в собі такі поля:
+-- Назву івента
+-- Id-юзера
+-- Час відправки івента (конвертувати timestamp в читабельний формат 2023-04-22 11:12:33) 
+-- Назву книги
+-- Номер розділу
+-- Номер діалогу
+-- Тип чойсу
+-- Ціну чойсу
+-- Причину нагороди
+
+SELECT 
+  event_name, 
+  user_id, 
+  TO_TIMESTAMP(event_timestamp / 1000) as event_timestamp, 
+  book_name, 
+  chapter_number, 
+  dialogue_number, 
+  choice_type, 
+  choice_price, 
+  reward_reason 
+FROM 
+  tablo 
+WHERE 
+  user_id = 'sdlasbd97asd98as78d' 
+  AND choice_type = 'paid' 
+  AND book_name = 'book123' 
+  AND chapter_number = 2
+

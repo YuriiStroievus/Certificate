@@ -1,0 +1,25 @@
+-- Завдання: Сформувати запит на основі даних з таблиці нижче (Tablo) для перевірки
+-- Чи отримав юзер з id - sdlasbd97asd98as78d нагороду за покупку, в період з 3 по 16 квітня 2023 року? 
+-- Сортувати результат за часом відправки івентів. 
+-- Результат запиту повинен містити в собі такі поля: 
+-- Назву івента 
+-- Id-юзера
+-- Час відправки івента (конвертувати timestamp в читабельний формат 2023-04-22 11:12:33) 
+-- Кількість отриманої нагороди
+-- Поточний баланс юзера 
+-- Причину нагороди
+
+SELECT 
+    event_name, 
+    user_id, 
+    TO_TIMESTAMP(event_timestamp / 1000) AS event_timestamp, 
+    amount, 
+    balance, 
+    reward_reason 
+FROM tablo 
+WHERE 
+    user_id = 'sdlasbd97asd98as78d' 
+    AND TO_TIMESTAMP(event_timestamp / 1000) >= '2023-04-03' 
+    AND TO_TIMESTAMP(event_timestamp / 1000) <= '2023-04-16' 
+    AND reward_reason = 'purchase' 
+ORDER BY TO_TIMESTAMP(event_timestamp / 1000);

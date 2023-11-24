@@ -1,0 +1,26 @@
+-- Create a SQL table named "employees". The table should contain the following columns: "first name" , "last name"  , "phone number"   and "date of birth" . 
+-- Fill this table with information for 5 employees using fictitious dat
+2.Find all employees born after 1990.
+3.Find the employee with the oldest date of birth and print his name and surname.
+4.Count the number of employees born in each year and output the result in a table showing the year and the number of employees born in that year.
+CREATE TABLE employees  (
+    name VARCHAR(255),
+    surname VARCHAR(255),
+    phone_number VARCHAR(15),
+    date_of_birth DATE
+);
+INSERT INTO employees (name, surname, phone_number, date_of_birth)
+VALUES
+    ('Іван', 'Петров', '123-456-7890', '1990-05-15'),
+    ('Марія', 'Іванова', '987-654-3210', '1985-08-20'),
+    ('Олексій', 'Сидоров', '555-555-5555', '1995-02-10'),
+    ('Наталія', 'Семенова', '111-222-3333', '1980-12-25'),
+    ('Павло', 'Григоров', '777-888-9999', '1992-04-03');
+SELECT * FROM employees WHERE date_of_birth > '1990-12-31';
+SELECT name, surname
+FROM employees
+ORDER BY date_of_birth ASC LIMIT 1;
+SELECT EXTRACT(YEAR FROM date_of_birth) AS birth_year, COUNT(*) AS employee_count
+FROM employees
+GROUP BY EXTRACT(YEAR FROM date_of_birth)
+ORDER BY birth_year;
