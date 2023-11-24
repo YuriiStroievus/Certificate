@@ -1,0 +1,205 @@
+{
+	"info": {
+		"_postman_id": "8a8af040-9227-45f9-84af-242e57e95be4",
+		"name": "Task 2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "25182585"
+	},
+	"item": [
+		{
+			"name": "Authorization",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"grant_type\":\"password\", \"username\":\"doej51382\", \"password\":\"doej51382!\", \"scope\": \"openid http\" }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://uuidentity.plus4u.net/uu-oidc-maing02/bb977a99f4cc4c37a2afce3fd599d0a7/oidc/grantToken"
+			},
+			"response": []
+		},
+		{
+			"name": "Name joke/create",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Test the status code\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Test the response time\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);  \r",
+							"});\r",
+							"pm.test(\"Test the response data\", function () {\r",
+							"    pm.response.to.be.json;  \r",
+							"    pm.response.to.have.jsonBody('name',);\r",
+							"    pm.response.to.have.jsonBody('name', 'New joke'); \r",
+							"});\r",
+							" "
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "at.jAAGZaVehab4xG24MLYqYA0wMlouCClK1tBFvqgVL1c"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"New joke\",\r\n  \"text\": \"There must be a funny joke here\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://uuappg01-eu-w-1.plus4u.net/uu-jokes-maing01/4ef6a7b01b5942ecbfb925b249af987f/joke/create"
+			},
+			"response": []
+		},
+		{
+			"name": "Name joke/get",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Test the status code\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Test the response time\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);  \r",
+							"});\r",
+							"pm.test(\"Test the response data\", function () {\r",
+							"    pm.response.to.be.json;  \r",
+							"    pm.response.to.have.jsonBody('id',);\r",
+							"    pm.response.to.have.jsonBody('id', '652262207976910033e8ec33'); \r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "at.jAAGZaVehab4xG24MLYqYA0wMlouCClK1tBFvqgVL1c"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"id\": \"652262207976910033e8ec33\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://uuappg01-eu-w-1.plus4u.net/uu-jokes-maing01/4ef6a7b01b5942ecbfb925b249af987f/joke/get"
+			},
+			"response": []
+		},
+		{
+			"name": "Name joke/update",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Test the status code\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Test the response time\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);  \r",
+							"});\r",
+							"pm.test(\"Test the response data\", function () {\r",
+							"    pm.response.to.be.json;  \r",
+							"    pm.response.to.have.jsonBody('name',);\r",
+							"    pm.response.to.have.jsonBody('name', 'New joke'); \r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "at.jAAGZaVehab4xG24MLYqYA0wMlouCClK1tBFvqgVL1c"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"id\": \"652262207976910033e8ec33\",\r\n\"name\":\"Update new joke\",\r\n\"text\":\"Even funnier joke than it was\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://uuappg01-eu-w-1.plus4u.net/uu-jokes-maing01/4ef6a7b01b5942ecbfb925b249af987f/joke/get"
+			},
+			"response": []
+		},
+		{
+			"name": "Name joke/delete",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "at.jAAGZaVehab4xG24MLYqYA0wMlouCClK1tBFvqgVL1c"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"id\": \"652262207976910033e8ec33\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://uuappg01-eu-w-1.plus4u.net/uu-jokes-maing01/4ef6a7b01b5942ecbfb925b249af987f/joke/delete"
+			},
+			"response": []
+		}
+	]
+}
