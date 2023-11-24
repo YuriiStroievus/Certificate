@@ -2,7 +2,7 @@
 **I am always working to become better at my job as a QA tester. When faced with difficult situations, I remain determined and want to do everything very well, not afraid to take responsibility. A strong team player  lways open to learning new things and improving existing skills.**
 
 
-<a href="https://drive.google.com/file/d/1_jqavd-0_vqzHg8Znu_BLucSGxtD2bOY/view?usp=sharing" target="_blank">Link to my CV</a>
+<a href="https://drive.google.com/file/d/1jnAUvoMFRlJSUzZlE-ymyiWR6jqOWB-F/view?usp=sharing" target="_blank">Link to my CV</a>
 
 
 **Languages and Tools**
