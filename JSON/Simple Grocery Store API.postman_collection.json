@@ -22,14 +22,15 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
+							"pm.test(\"Status code is 200\", () => {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
 							"pm.test(\"Status shoud be UP\", function () {\r",
-							"    var jsonData = pm.response.json();\r",
+							"    let jsonData = pm.response.json();\r",
 							"    pm.expect(jsonData.status).to.eql(\"UP\");\r",
 							"});\r",
-							""
+							"\r",
+							" "
 						],
 						"type": "text/javascript"
 					}
