@@ -25,9 +25,9 @@
 							"pm.test(\"Status code is 200\", () => {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
-							"pm.test(\"Status shoud be UP\", function () {\r",
-							"    let jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData.status).to.eql(\"UP\");\r",
+							"pm.test(\"Status shoud be UP\", () => {\r",
+							"    const response = pm.response.json();\r",
+							"    pm.expect(response.status).to.eql(\"UP\");\r",
 							"});\r",
 							"\r",
 							" "
@@ -53,6 +53,19 @@
 		},
 		{
 			"name": "Get all products",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -76,9 +89,44 @@
 		},
 		{
 			"name": "Get single product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {\r",
+							"        pm.response.to.have.status(200);\r",
+							"    });\r",
+							"pm.test(\"Product Name\",() => {\r",
+							"        const response = pm.response.json();\r",
+							"         \r",
+							"        pm.expect(response.name).to.eql(\"Green Cabbage Organic\")\r",
+							"    })\r",
+							"pm.test(\"Product Price\",() => {\r",
+							"        const response = pm.response.json();\r",
+							"         \r",
+							"        pm.expect(response.price).to.eql(3.02);})\r",
+							"\r",
+							"pm.test(\"Product is in stock\",() => {\r",
+							"        const response = pm.response.json();\r",
+							"         \r",
+							"        pm.expect(response.inStock).to.be.true;})\r",
+							"        "
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "{{BaseURL}}/products/:productId",
 					"host": [
@@ -100,6 +148,19 @@
 		},
 		{
 			"name": "Create a new cart",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", () => {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -117,6 +178,19 @@
 		},
 		{
 			"name": "Get cart",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -132,7 +206,7 @@
 					"variable": [
 						{
 							"key": "cartId",
-							"value": "{{cartId}}"
+							"value": "{{NewCardID}}"
 						}
 					]
 				}
@@ -141,6 +215,19 @@
 		},
 		{
 			"name": "Get cart items",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -157,7 +244,7 @@
 					"variable": [
 						{
 							"key": "cartId",
-							"value": "{{cartId}}"
+							"value": "{{NewCardID}}"
 						}
 					]
 				}
@@ -166,6 +253,19 @@
 		},
 		{
 			"name": "Update quatity",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", () => {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -202,11 +302,11 @@
 					"variable": [
 						{
 							"key": "cartId",
-							"value": "{{cartId}}"
+							"value": "{{NewCardID}}"
 						},
 						{
 							"key": "itemId",
-							"value": "367207965"
+							"value": "214848277"
 						}
 					]
 				}
@@ -215,6 +315,19 @@
 		},
 		{
 			"name": "Replace product in cart",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", () => {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -251,45 +364,11 @@
 					"variable": [
 						{
 							"key": "cartId",
-							"value": "{{cartId}}"
+							"value": "{{NewCardID}}"
 						},
 						{
 							"key": "itemId",
-							"value": "367207965"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Add item to cart",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"productId\": 3674\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{BaseURL}}/carts/:cartId/items",
-					"host": [
-						"{{BaseURL}}"
-					],
-					"path": [
-						"carts",
-						":cartId",
-						"items"
-					],
-					"variable": [
-						{
-							"key": "cartId",
-							"value": "{{cartId}}"
+							"value": "214848277"
 						}
 					]
 				}
@@ -298,6 +377,19 @@
 		},
 		{
 			"name": "Delete item in cart",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", () => {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -325,11 +417,58 @@
 					"variable": [
 						{
 							"key": "cartId",
-							"value": "{{cartId}}"
+							"value": "{{NewCardID}}"
 						},
 						{
 							"key": "itemId",
-							"value": "367207965"
+							"value": "214848277"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add item to cart",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", () => {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"productId\": 3674\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/carts/:cartId/items",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"carts",
+						":cartId",
+						"items"
+					],
+					"variable": [
+						{
+							"key": "cartId",
+							"value": "{{NewCardID}}"
 						}
 					]
 				}
@@ -338,12 +477,25 @@
 		},
 		{
 			"name": "Register API Client",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", () => {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"clientName\": \"Yurii\",\r\n\"clientEmail\": \"yu.stroievus@gmail.com\"\r\n}",
+					"raw": "{\"clientName\": \"Yurii\",\r\n\"clientEmail\": \"yu.stroyevus@gmail.com\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -364,13 +516,26 @@
 		},
 		{
 			"name": "Create an order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", () => {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"auth": {
 					"type": "bearer",
 					"bearer": [
 						{
 							"key": "token",
-							"value": "{{accessToken}}",
+							"value": "2c291ff10cdc82ad8b4707e0bc96deee956a939959aa1151ce4f2c9fa55c20ab",
 							"type": "string"
 						}
 					]
@@ -379,7 +544,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"cartId\": \"qwjq1MybbzT4LiMrG7A10\",\r\n    \"customerName\": \"{{$randomUserName}}\"\r\n}",
+					"raw": "{\r\n    \"cartId\": \"2pjfhebEvRllG12YH3Bjd\",\r\n    \"customerName\": \"{{$randomUserName}}\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -400,6 +565,19 @@
 		},
 		{
 			"name": "Get all orders",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -409,7 +587,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "{{accessToken}}",
+							"value": "2c291ff10cdc82ad8b4707e0bc96deee956a939959aa1151ce4f2c9fa55c20ab",
 							"type": "string"
 						}
 					]
@@ -439,13 +617,26 @@
 		},
 		{
 			"name": "Update order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", () => {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"auth": {
 					"type": "bearer",
 					"bearer": [
 						{
 							"key": "token",
-							"value": "{{accessToken}}",
+							"value": "2c291ff10cdc82ad8b4707e0bc96deee956a939959aa1151ce4f2c9fa55c20ab",
 							"type": "string"
 						}
 					]
@@ -473,7 +664,7 @@
 					"variable": [
 						{
 							"key": "orderId",
-							"value": "sfH6a43eGpWbVFXfrH1DC"
+							"value": "xoB-Fvl9_B-ZKiWNKDSRW"
 						}
 					]
 				}
@@ -482,13 +673,26 @@
 		},
 		{
 			"name": "Add new comment",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", () => {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"auth": {
 					"type": "bearer",
 					"bearer": [
 						{
 							"key": "token",
-							"value": "{{accessToken}}",
+							"value": "2c291ff10cdc82ad8b4707e0bc96deee956a939959aa1151ce4f2c9fa55c20ab",
 							"type": "string"
 						}
 					]
@@ -516,7 +720,7 @@
 					"variable": [
 						{
 							"key": "orderId",
-							"value": "sfH6a43eGpWbVFXfrH1DC"
+							"value": "xoB-Fvl9_B-ZKiWNKDSRW"
 						}
 					]
 				}
@@ -525,13 +729,26 @@
 		},
 		{
 			"name": "Delete order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", () => {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"auth": {
 					"type": "bearer",
 					"bearer": [
 						{
 							"key": "token",
-							"value": "{{accessToken}}",
+							"value": "2c291ff10cdc82ad8b4707e0bc96deee956a939959aa1151ce4f2c9fa55c20ab",
 							"type": "string"
 						}
 					]
@@ -559,7 +776,7 @@
 					"variable": [
 						{
 							"key": "orderId",
-							"value": "RNm20W6sUBP8YqrqA3VWc"
+							"value": "xoB-Fvl9_B-ZKiWNKDSRW"
 						}
 					]
 				}
@@ -601,6 +818,10 @@
 			"key": "cartId",
 			"value": "",
 			"type": "string"
+		},
+		{
+			"key": "NewCardID",
+			"value": "2pjfhebEvRllG12YH3Bjd"
 		}
 	]
 }
