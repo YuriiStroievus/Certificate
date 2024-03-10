@@ -654,6 +654,19 @@
 								"exec": [
 									"pm.test(\"Status code is 200\", () => {\r",
 									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"created order is in a list\",() =>{\r",
+									"    const response = pm.response.json();\r",
+									"    let IsOrderIdInResponse = false;\r",
+									"    response.forEach((order) => { \r",
+									"        if (order.id === pm.collectionVariables.get('orderId')) {\r",
+									"            console.log('Found it');\r",
+									"            IsOrderIdInResponse = true;\r",
+									"        }\r",
+									"\r",
+									"    });\r",
+									"pm.expect(IsOrderIdInResponse).to.be.true;\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -669,7 +682,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "2c291ff10cdc82ad8b4707e0bc96deee956a939959aa1151ce4f2c9fa55c20ab",
+									"value": "{{accessToken}}",
 									"type": "string"
 								}
 							]
