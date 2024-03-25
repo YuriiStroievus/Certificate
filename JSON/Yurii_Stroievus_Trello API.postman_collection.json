@@ -16,7 +16,11 @@
 							"pm.test(\"Status code is 200\", () => {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
-							""
+							"console.log(pm.response.json().length)\r",
+							"const response = pm.response.json();\r",
+							"pm.collectionVariables.set(\"boardId\", response[0].id );\r",
+							"const existingBoardIds = response.map(board => board.id);\r",
+							"pm.collectionVariables.set('existingBoardIds', existingBoardIds);"
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -62,8 +66,22 @@
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
 							"const response = pm.response.json();\r",
-							"console.log(response.id);\r",
-							"pm.collectionVariables.set(\"boardId\", response.id );"
+							"\r",
+							"pm.test(\"Board is created \", () => {     \r",
+							"    pm.expect(response.name).to.be.eql('Learning Postman');\r",
+							"    pm.expect(response.closed).to.be.false;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Board is private \", () => {\r",
+							"    pm.expect(response.prefs.permissionLevel).to.be.eql(\"private\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Calendar is  disabled\", () => {\r",
+							"   let Calendarview = response.prefs.switcherViews.find(view =>view.viewType === 'Calendar' );\r",
+							"   pm.expect(Calendarview).to.be.an(\"Object\");\r",
+							"   pm.expect(Calendarview.enabled).to.be.false;\r",
+							"});\r",
+							""
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -74,7 +92,7 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}/1/boards/?name={{$randomFirstName}} {{$randomLastName}}&key={{trelloKey}}&token={{trelloToken}}",
+					"raw": "{{baseUrl}}/1/boards/?name=Learning Postman&key={{trelloKey}}&token={{trelloToken}}",
 					"host": [
 						"{{baseUrl}}"
 					],
@@ -86,7 +104,7 @@
 					"query": [
 						{
 							"key": "name",
-							"value": "{{$randomFirstName}} {{$randomLastName}}"
+							"value": "Learning Postman"
 						},
 						{
 							"key": "key",
@@ -383,6 +401,20 @@
 						"type": "text/javascript",
 						"packages": {}
 					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const existingBoardIds = pm.collectionVariables.get('existingBoardIds');\r",
+							"console.log(existingBoardIds);\r",
+							"const boardId = existingBoardIds.pop();\r",
+							"pm.collectionVariables.set(\"boardId\",boardId);\r",
+							"pm.collectionVariables.set(\"existingBoardIds\",existingBoardIds);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
 				}
 			],
 			"request": {
@@ -519,6 +551,10 @@
 		},
 		{
 			"key": "cardId",
+			"value": ""
+		},
+		{
+			"key": "existingBoardIds",
 			"value": ""
 		}
 	]
