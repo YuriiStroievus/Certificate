@@ -16,9 +16,7 @@
 							"pm.test(\"Status code is 200\", () => {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
-							"const response = pm.response.json();\r",
-							"console.log(response[0].id);\r",
-							"pm.collectionVariables.set(\"boardId\", response[0].id );"
+							""
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -62,7 +60,10 @@
 						"exec": [
 							"pm.test(\"Status code is 200\", () => {\r",
 							"    pm.response.to.have.status(200);\r",
-							"});"
+							"});\r",
+							"const response = pm.response.json();\r",
+							"console.log(response.id);\r",
+							"pm.collectionVariables.set(\"boardId\", response.id );"
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -73,7 +74,7 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}/1/boards/?name=Learning Postman&key={{trelloKey}}&token={{trelloToken}}",
+					"raw": "{{baseUrl}}/1/boards/?name={{$randomFirstName}} {{$randomLastName}}&key={{trelloKey}}&token={{trelloToken}}",
 					"host": [
 						"{{baseUrl}}"
 					],
@@ -85,7 +86,7 @@
 					"query": [
 						{
 							"key": "name",
-							"value": "Learning Postman"
+							"value": "{{$randomFirstName}} {{$randomLastName}}"
 						},
 						{
 							"key": "key",
@@ -142,7 +143,7 @@
 					"variable": [
 						{
 							"key": "id",
-							"value": "65fff1fa2e3cb92c48c00ed5"
+							"value": "{{boardId}}"
 						}
 					]
 				}
@@ -158,7 +159,10 @@
 						"exec": [
 							"pm.test(\"Status code is 200\", () => {\r",
 							"    pm.response.to.have.status(200);\r",
-							"});"
+							"});\r",
+							"const response = pm.response.json();\r",
+							"console.log(response.id);\r",
+							"pm.collectionVariables.set(\"ToDOIdList\", response.id );"
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -169,7 +173,7 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}/1/lists?name=TODO&idBoard=65fff1fa2e3cb92c48c00ed5&key={{trelloKey}}&token={{trelloToken}}",
+					"raw": "{{baseUrl}}/1/lists?name=TODO&idBoard={{boardId}}&key={{trelloKey}}&token={{trelloToken}}",
 					"host": [
 						"{{baseUrl}}"
 					],
@@ -184,7 +188,7 @@
 						},
 						{
 							"key": "idBoard",
-							"value": "65fff1fa2e3cb92c48c00ed5"
+							"value": "{{boardId}}"
 						},
 						{
 							"key": "key",
@@ -208,7 +212,10 @@
 						"exec": [
 							"pm.test(\"Status code is 200\", () => {\r",
 							"    pm.response.to.have.status(200);\r",
-							"});"
+							"});\r",
+							"const response = pm.response.json();\r",
+							"console.log(response.id);\r",
+							"pm.collectionVariables.set(\"DoneIdList\", response.id );"
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -219,7 +226,7 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}/1/lists?name=DONE&idBoard=65fff1fa2e3cb92c48c00ed5&key={{trelloKey}}&token={{trelloToken}}",
+					"raw": "{{baseUrl}}/1/lists?name=Done&idBoard={{boardId}}&key={{trelloKey}}&token={{trelloToken}}",
 					"host": [
 						"{{baseUrl}}"
 					],
@@ -230,11 +237,11 @@
 					"query": [
 						{
 							"key": "name",
-							"value": "DONE"
+							"value": "Done"
 						},
 						{
 							"key": "idBoard",
-							"value": "65fff1fa2e3cb92c48c00ed5"
+							"value": "{{boardId}}"
 						},
 						{
 							"key": "key",
@@ -258,7 +265,10 @@
 						"exec": [
 							"pm.test(\"Status code is 200\", () => {\r",
 							"    pm.response.to.have.status(200);\r",
-							"});"
+							"});\r",
+							"const response = pm.response.json();\r",
+							"console.log(response.id);\r",
+							"pm.collectionVariables.set(\"cardId\", response.id );"
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -269,7 +279,7 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}/1/cards?name=Sign-up for Trello&key={{trelloKey}}&token={{trelloToken}}&idList=65fff257382905165f62e708",
+					"raw": "{{baseUrl}}/1/cards?name=Sign-up for Trello&key={{trelloKey}}&token={{trelloToken}}&idList={{ToDOIdList}}",
 					"host": [
 						"{{baseUrl}}"
 					],
@@ -292,7 +302,7 @@
 						},
 						{
 							"key": "idList",
-							"value": "65fff257382905165f62e708"
+							"value": "{{ToDOIdList}}"
 						}
 					]
 				}
@@ -326,7 +336,7 @@
 					}
 				],
 				"url": {
-					"raw": "{{baseUrl}}/1/card/:id?key={{trelloKey}}&token={{trelloToken}}&idList=65fff28022dca556f25371de",
+					"raw": "{{baseUrl}}/1/card/:id?key={{trelloKey}}&token={{trelloToken}}&idList={{DoneIdList}}",
 					"host": [
 						"{{baseUrl}}"
 					],
@@ -346,13 +356,13 @@
 						},
 						{
 							"key": "idList",
-							"value": "65fff28022dca556f25371de"
+							"value": "{{DoneIdList}}"
 						}
 					],
 					"variable": [
 						{
 							"key": "id",
-							"value": "65fff2be12483802d27bbc93"
+							"value": "{{cardId}}"
 						}
 					]
 				}
@@ -401,7 +411,7 @@
 					"variable": [
 						{
 							"key": "id",
-							"value": "65fff1fa2e3cb92c48c00ed5"
+							"value": "{{boardId}}"
 						}
 					]
 				}
@@ -450,7 +460,7 @@
 					"variable": [
 						{
 							"key": "id",
-							"value": "65fff1fa2e3cb92c48c00ed5"
+							"value": "{{boardId}}"
 						}
 					]
 				}
@@ -493,6 +503,22 @@
 		},
 		{
 			"key": "boardId",
+			"value": ""
+		},
+		{
+			"key": "IdList",
+			"value": ""
+		},
+		{
+			"key": "ToDOIdList",
+			"value": ""
+		},
+		{
+			"key": "DoneIdList",
+			"value": ""
+		},
+		{
+			"key": "cardId",
 			"value": ""
 		}
 	]
