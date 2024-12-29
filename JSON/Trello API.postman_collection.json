@@ -466,7 +466,7 @@
 			"response": []
 		},
 		{
-			"name": "Get deleted board",
+			"name": "Get deleted boards",
 			"event": [
 				{
 					"listen": "test",
