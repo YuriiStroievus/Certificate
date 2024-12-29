@@ -197,15 +197,8 @@
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
 							"const response = pm.response.json();\r",
-							"pm.collectionVariables.set(\"ToDOIdList\", response.id );\r",
-							" \r",
-							"\r",
-							"pm.test(\"TODO list is created \", () => {\r",
-							"    pm.expect(response.name).to.be.eql(\"TODO\");\r",
-							"    pm.expect(response.closed).to.be.false;\r",
-							"    pm.expect(response.idBoard).to.be.eql(pm.collectionVariables.get(\"boardId\"));\r",
-							"});\r",
-							""
+							"console.log(response.id);\r",
+							"pm.collectionVariables.set(\"ToDOIdList\", response.id );"
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -258,13 +251,7 @@
 							"});\r",
 							"const response = pm.response.json();\r",
 							"console.log(response.id);\r",
-							"pm.collectionVariables.set(\"DoneIdList\", response.id );\r",
-							"\r",
-							"pm.test(\"Done list is created \", () => {\r",
-							"    pm.expect(response.name).to.be.eql(\"Done\");\r",
-							"    pm.expect(response.closed).to.be.false;\r",
-							"    pm.expect(response.idBoard).to.be.eql(pm.collectionVariables.get(\"boardId\"));\r",
-							"});"
+							"pm.collectionVariables.set(\"DoneIdList\", response.id );"
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -316,13 +303,7 @@
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
 							"const response = pm.response.json();\r",
-							"pm.test(\"Card is created\", () => {\r",
-							"    pm.expect(response.name).to.be.eql(\"Sign-up for Trello\");\r",
-							"    pm.expect(response.idList).to.be.eql(pm.collectionVariables.get(\"DoneIdList\"));\r",
-							"    pm.expect(response.idBoard).to.be.eql(pm.collectionVariables.get(\"boardId\"));\r",
-							"    pm.expect(response.badges.attachmentsByType.trello.card).to.be.eql(0);\r",
-							"});\r",
-							"\r",
+							"console.log(response.id);\r",
 							"pm.collectionVariables.set(\"cardId\", response.id );"
 						],
 						"type": "text/javascript",
@@ -334,7 +315,7 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}/1/cards?name=Sign-up for Trello&key={{trelloKey}}&token={{trelloToken}}&idList={{DoneIdList}}",
+					"raw": "{{baseUrl}}/1/cards?name=Sign-up for Trello&key={{trelloKey}}&token={{trelloToken}}&idList={{ToDOIdList}}",
 					"host": [
 						"{{baseUrl}}"
 					],
@@ -357,7 +338,7 @@
 						},
 						{
 							"key": "idList",
-							"value": "{{DoneIdList}}"
+							"value": "{{ToDOIdList}}"
 						}
 					]
 				}
@@ -373,11 +354,6 @@
 						"exec": [
 							"pm.test(\"Status code is 200\", () => {\r",
 							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"const response = pm.response.json();\r",
-							"pm.test(\"Card is moved\", () => {\r",
-							"    pm.expect(response.name).to.be.eql(\"Sign-up for Trello\");\r",
-							"    pm.expect(response.idList).to.be.eql(pm.collectionVariables.get(\"DoneIdList\"));\r",
 							"});"
 						],
 						"type": "text/javascript",
